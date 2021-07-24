@@ -1,3 +1,4 @@
+/*
 // Coder Foundry Code
 const startBtn = document.getElementById('dromeBtn');
 
@@ -46,7 +47,7 @@ function displayMessage(returnObj){
     document.getElementById('alertHeader').innerHTML = returnObj.msg;
     document.getElementById('yesMsg').innerHTML = `Your phrase revered is ${returnObj.reversed}.`;
     document.getElementById('yesAlert').classList.remove('invisible');
-}
+}*/
 
 /* My original code
 // Retrive User Input

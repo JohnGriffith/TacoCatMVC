@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TacoCatMVC.Models;
 
@@ -32,6 +33,34 @@ namespace TacoCatMVC.Controllers
         {
             Palindrome model = new();
             return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Reverse(Palindrome palindrome)
+        {
+            string inputWord = palindrome.InputWord;
+            string revWord = "";
+
+            inputWord = Regex.Replace(inputWord.ToLower().Trim(), "[^a-zA-Z0-9]+", "");
+
+            for (int i = inputWord.Length-1; i >= 0; i--)
+            {
+                revWord += inputWord[i];
+            }
+
+            palindrome.RevWord = revWord;
+
+            if(revWord == inputWord)
+            {
+                palindrome.IsPalindrome = true;
+                palindrome.Message = $"Success {palindrome.InputWord} is a Palindrome.";
+            } else
+            {
+                palindrome.IsPalindrome = false;
+                palindrome.Message = $"Sorry {palindrome.InputWord} is not a Palindrome.";
+            }
+
+            return View(palindrome);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
